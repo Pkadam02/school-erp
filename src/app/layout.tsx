@@ -5,7 +5,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "../component/Navbar";
 import Footer from "@/component/Footer";
-
+import { useState } from "react";
 
 
 // Optimized Google Fonts — no external request, zero render-blocking
@@ -73,6 +73,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <html lang="en">
    
@@ -80,12 +81,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased`}
       >
-        <Navbar />
+        <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
 
         {/* All pages share page transition */}
        {children}
 
-        <Footer />
+        <Footer setIsOpen={setIsOpen} />
      
         
       </body>
