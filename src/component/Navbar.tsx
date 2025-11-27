@@ -3,14 +3,18 @@
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 
-export default function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
+interface NavbarProps {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function Navbar({ isOpen, setIsOpen }: NavbarProps) {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "auto";
-  }, [mobileOpen]);
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
+  }, [isOpen]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -120,15 +124,15 @@ export default function Navbar() {
           </Link>
           <button
             className="xl:hidden mr-5 text-slate-900 text-4xl"
-            onClick={() => setMobileOpen((p) => !p)}
+            onClick={() => setIsOpen((p: boolean) => !p)}
           >
-            {mobileOpen ? "✕" : "☰"}
+            {isOpen ? "✕" : "☰"}
           </button>
         </div>
       </div>
 
       {/* Mobile Nav */}
-      {mobileOpen && (
+      {isOpen && (
         <div className="xl:hidden bg-slate-950 text-slate-100 border-t border-slate-800 h-[100vh] overflow-y-auto scrollbar-thin scrollbar-thumb-slate-800 transition-all duration-300">
           <div className="px-5 py-6 space-y-15 text-sm">
             {[
@@ -200,7 +204,7 @@ export default function Navbar() {
                         className={`block py-1 ${
                           label.includes("Explore") ? "text-emerald-300 font-medium" : ""
                         }`}
-                        onClick={() => setMobileOpen(false)}
+                        onClick={() => setIsOpen(false)}
                       >
                         {label}
                       </Link>
@@ -211,12 +215,12 @@ export default function Navbar() {
             ))}
 
             <div className="mb-10 flex flex-col gap-15">
-              <Link href="/blog" onClick={() => setMobileOpen(false)}>
+              <Link href="/blog" onClick={() => setIsOpen(false)}>
                 Blog
               </Link>
               <Link
                 href="/contact"
-                onClick={() => setMobileOpen(false)}
+                onClick={() => setIsOpen(false)}
                 className="px-5 py-5 w-60 ml-15 text-center bg-emerald-400 text-[var(--nav-btn)] font-semibold hover:bg-emerald-300 transition-all"
               >
                 Book a demo
