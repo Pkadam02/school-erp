@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 :root {
   --background: #ffffff;
@@ -15,7 +19,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --nav-text: #d60000;
   }
 }
 
@@ -23,4 +27,43 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* === NAVBAR CUSTOM STYLES FIXED === */
+
+
+:root {
+  --nav-bg: #ffffff;
+  --nav-bg0: #0F172A;
+  --nav-text: #000000;
+  --nav-text0: #ffffff;
+  --nav-para: #cf2424;
+  --nav-btn: #00ffc3;
+}
+
+
+/* === Footer CUSTOM STYLES FIXED === */
+
+
+:root {
+  --nav-bg: #ffffff;
+  --nav-bg0: #0F172A;
+  --nav-text: #000000;
+  --nav-text0: #ffffff;
+  --nav-para: #cf2424;
+  
+}
+
+
+/* === Hero CUSTOM STYLES FIXED === */
+
+
+:root {
+  --hero-bg: #f6f2f2;
+  --hero-bg0: #0F172A;
+  --hero-text: #000000;
+  --hero-text0: #ffffff;
+  --hero-btn: #00ffc3;
+  --hero-btn2: #00ffc31e;
+  --hero-para: #00ffaa;
 }

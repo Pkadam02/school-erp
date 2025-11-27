@@ -1,0 +1,94 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+
+const blogs = [
+  {
+    id: 1,
+    title:
+      "Back to School, Made Simple: How MyClassboard Powers a Seamless Start",
+    excerpt:
+      "The first day of school is electric, students walk in with fresh uniforms, holding new textbooks, their voices ringing out through the Intent.",
+    image: "/Blog/1.jpg",
+  },
+  {
+    id: 2,
+    title:
+      "Back to School 2025: How to Turn the First Week into a Winning Start",
+    excerpt:
+      "June. New shoes, new notebooks, and a classroom full of new faces. For students, “back to school” is a season of excitement with completing more.",
+    image: "/Blog/2.jpg",
+  },
+  {
+    id: 3,
+    title: "How AI is Quietly Transforming Classrooms Worldwide!",
+    excerpt:
+      "Education is evolving, and AI is the  connects local classrooms with global ideas. Artificial intelligence in education is developing area.",
+    image: "/Blog/3.jpg",
+  },
+];
+
+export default function Blogs() {
+  return (
+    <section className="w-full bg-white py-20">
+      <div className="max-w-[1500px] text-center mx-auto px-34">
+      <span className="text-[var(--hero-text)] font-light text-sm tracking-wide">
+          BLOGS
+        </span>
+
+        {/* HEADER AREA */}
+        <div className="text-center w-6xl mx-auto mb-16">
+          <h2 className="text-4xl font-extrabold text-gray-900">
+          Transforming Learning, One Article at a Time
+          </h2>
+          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
+
+          {blogs.map((blog) => (
+            <div key={blog.id} className="relative bg-white">
+              
+              {/* Top Banner */}
+              <div className="w-full h-[290px] relative">
+                <Image
+                  src={blog.image}
+                  alt={blog.title}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+
+              {/* White box pulled UP (exact screenshot effect) */}
+              <div className="bg-white w-[92%] border mx-auto px-8 py-8   relative -mt-[90px]">
+                <h2 className="text-[22px] font-semibold text-gray-800 leading-snug mb-4">
+                  {blog.title}
+                </h2>
+
+        
+
+                <p className="text-gray-600 text-[16px] leading-relaxed">
+                  {blog.excerpt}
+                </p>
+              </div>
+
+              {/* equal height compensation */}
+              <div className="h-[20px]" />
+            </div>
+          ))}
+
+        </div>
+
+        <div className="text-center mt-16">
+          <Link
+            href="/explore-all-products"
+            className="bg-[var(--hero-btn)] text-[var(--hero-text)] px-8 py-4  text-lg  hover:bg-[var(--hero-btn)]/30 hover:text-black transition-all"
+          >
+            Explore All Solutions
+          </Link>
+        </div>
+
+      </div>
+    </section>
+  );
+}
