@@ -7,7 +7,7 @@ export default function CTA() {
   const [openPopup, setOpenPopup] = useState(false);
 
   return (
-    <section className="relative w-full bg-white py-24 overflow-hidden">
+    <section className="relative w-full bg-white py-14 overflow-hidden">
 
       {/* Soft Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 opacity-40 blur-2xl animate-pulse"></div>
@@ -65,14 +65,14 @@ export default function CTA() {
 
       {/* WHATSAPP FLOAT BUTTON */}
       <a
-        href="https://wa.me/919999999999"
+        href="https://wa.me/919359287285"
         target="_blank"
         className="fixed bottom-6 right-6 bg-green-500 text-white px-5 py-4 rounded-full shadow-2xl flex items-center gap-3 hover:bg-green-600 transition-all z-50"
       >
         <svg width="23" height="23" viewBox="0 0 32 32" fill="currentColor">
           <path d="M16 .5C7.44.5.5 7.44.5 16c0 2.8.73 5.54 2.16 7.96L.88 31.12 7.9 29.3c2.34 1.28 4.99 1.96 7.77 1.96 8.56 0 15.5-6.94 15.5-15.5S24.56.5 16 .5z"/>
         </svg>
-        Chat on WhatsApp
+        
       </a>
     </section>
   );

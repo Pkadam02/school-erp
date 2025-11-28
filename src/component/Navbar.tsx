@@ -43,13 +43,13 @@ export default function Navbar({ isOpen, setIsOpen }: NavbarProps) {
             id="about"
             openMenu={openMenu}
             setOpenMenu={setOpenMenu}
-            title="About Us"
+            title="About"
             links={[
-              ["My Class Board", "/about/my-class-board"],
-              ["News Letter", "/about/news-letter"],
-              ["Team", "/about/team"],
-              ["Partner", "/about/partner"],
-              ["Customer Support", "/about/customer-support"],
+              ["About Us", "/aboutus/about"],
+              ["News Letter", "/aboutus/newsletter"],
+              ["Team", "/aboutus/team"],
+              ["Partner", "/aboutus/partner"],
+              ["Customer Support", "/aboutus/customer-support"],
             ]}
             explore="/about"
             descTitle="Who We Are"
@@ -82,9 +82,9 @@ export default function Navbar({ isOpen, setIsOpen }: NavbarProps) {
             setOpenMenu={setOpenMenu}
             title="Solutions"
             links={[
-              ["Safety & Security", "/solutions/safety-security"],
-              ["Mobile Apps", "/solutions/mobile-apps"],
-              ["Based on Curriculum", "/solutions/based-on-curriculum"],
+              ["Safety & Security", "/solutions/safety&security"],
+              ["Mobile Apps", "/solutions/mobileapps"],
+              ["Based on Curriculum", "/solutions/curriculum"],
             ]}
             explore="/solutions"
             descTitle="Designed for Schools"
@@ -140,7 +140,7 @@ export default function Navbar({ isOpen, setIsOpen }: NavbarProps) {
                 id: "about",
                 title: "About",
                 links: [
-                  ["My Class Board", "/about/my-class-board"],
+                  ["About US", "/aboutus"],
                   ["News Letter", "/about/news-letter"],
                   ["Team", "/about/team"],
                   ["Partner", "/about/partner"],

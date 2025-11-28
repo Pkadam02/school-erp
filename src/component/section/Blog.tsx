@@ -24,7 +24,7 @@ const blogs = [
     id: 3,
     title: "How AI is Quietly Transforming Classrooms Worldwide!",
     excerpt:
-      "Education is evolving, and AI is the  connects local classrooms with global ideas. Artificial intelligence in education is developing area.",
+      "Education is evolving, and AI is the connects local classrooms with global ideas. Artificial intelligence in education is developing area.",
     image: "/Blog/3.jpg",
   },
 ];
@@ -32,24 +32,27 @@ const blogs = [
 export default function Blogs() {
   return (
     <section className="w-full bg-white py-20">
-      <div className="max-w-[1500px] text-center mx-auto px-34">
-      <span className="text-[var(--hero-text)] font-light text-sm tracking-wide">
+      <div className="max-w-[1500px] mx-auto text-center px-4 sm:px-6 lg:px-10">
+
+        {/* TAG */}
+        <span className="text-[var(--hero-text)] font-light text-sm tracking-wide">
           BLOGS
         </span>
 
-        {/* HEADER AREA */}
-        <div className="text-center w-6xl mx-auto mb-16">
-          <h2 className="text-4xl font-extrabold text-gray-900">
-          Transforming Learning, One Article at a Time
+        {/* HEADER */}
+        <div className="text-center mb-16">
+          <h2 className="text-2xl md:text-4xl font-extrabold text-gray-900 leading-tight">
+            Transforming Learning, One Article at a Time
           </h2>
-          </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
+        </div>
 
+        {/* BLOG GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6">
           {blogs.map((blog) => (
-            <div key={blog.id} className="relative bg-white">
+            <div key={blog.id} className="relative">
               
-              {/* Top Banner */}
-              <div className="w-full h-[290px] relative">
+              {/* IMAGE */}
+              <div className="w-full h-[250px] md:h-[290px] relative">
                 <Image
                   src={blog.image}
                   alt={blog.title}
@@ -59,35 +62,32 @@ export default function Blogs() {
                 />
               </div>
 
-              {/* White box pulled UP (exact screenshot effect) */}
-              <div className="bg-white w-[92%] border mx-auto px-8 py-8   relative -mt-[90px]">
-                <h2 className="text-[22px] font-semibold text-gray-800 leading-snug mb-4">
+              {/* white card */}
+              <div className="bg-white border shadow-sm w-[92%] mx-auto px-6 py-7 md:px-8 md:py-8 rounded-md relative -mt-[70px] md:-mt-[90px]">
+                <h2 className="text-[20px] md:text-[22px] font-semibold text-gray-800 leading-snug mb-4">
                   {blog.title}
                 </h2>
 
-        
-
-                <p className="text-gray-600 text-[16px] leading-relaxed">
+                <p className="text-gray-600 text-[15px] md:text-[16px] leading-relaxed">
                   {blog.excerpt}
                 </p>
               </div>
 
-              {/* equal height compensation */}
+              {/* ensures equal bottom spacing */}
               <div className="h-[20px]" />
             </div>
           ))}
-
         </div>
 
+        {/* BUTTON */}
         <div className="text-center mt-16">
           <Link
             href="/explore-all-products"
-            className="bg-[var(--hero-btn)] text-[var(--hero-text)] px-8 py-4  text-lg  hover:bg-[var(--hero-btn)]/30 hover:text-black transition-all"
+            className="bg-[var(--hero-btn)] text-[var(--hero-text)] px-8 py-4 text-lg hover:bg-[var(--hero-btn)]/30 hover:text-black transition-all inline-block"
           >
             Explore All Solutions
           </Link>
         </div>
-
       </div>
     </section>
   );
