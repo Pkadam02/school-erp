@@ -10,12 +10,16 @@ interface NavbarProps {
 
 export default function Navbar({ isOpen, setIsOpen }: NavbarProps) {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [scrollUp, setScrollUp] = useState(true);
+  const lastScroll = useRef(0);
   const menuRef = useRef<HTMLDivElement>(null);
 
+  /* stop page scroll on mobile menu */
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
   }, [isOpen]);
 
+  /* close megamenu when clicking outside */
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -26,10 +30,24 @@ export default function Navbar({ isOpen, setIsOpen }: NavbarProps) {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
+  /* scroll hide for mobile only */
+  useEffect(() => {
+    const handleScroll = () => {
+      let current = window.scrollY;
+      if (current > lastScroll.current) setScrollUp(false);
+      else setScrollUp(true);
+      lastScroll.current = current;
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <header
-      className="w-full fixed top-0 z-[999] bg-[var(--nav-bg)] transition-all shadow-[0_4px_25px_rgba(0,0,0,0.1)]"
       ref={menuRef}
+      className={`w-full fixed top-0 z-[999] bg-[var(--nav-bg)] transition-all shadow-[0_4px_25px_rgba(0,0,0,0.1)]
+      ${!scrollUp && !isOpen ? "translate-y-[-100%] xl:translate-y-0" : "translate-y-0"}
+    `}
     >
       <div className="max-w-[1450px] h-20 mx-auto flex items-center justify-between py-4 px-4 xl:px-0">
         <Link href="/" className="flex items-center gap-2">
@@ -38,6 +56,10 @@ export default function Navbar({ isOpen, setIsOpen }: NavbarProps) {
 
         {/* Desktop Navigation */}
         <nav className="hidden xl:flex items-center gap-15">
+          <Link href="/" className="text-[var(--nav-text)] hover:text-[var(--nav-btn)] transition">
+            Home
+          </Link>
+
           <MegaMenu
             label="About"
             id="about"
@@ -123,7 +145,7 @@ export default function Navbar({ isOpen, setIsOpen }: NavbarProps) {
             Book a demo
           </Link>
           <button
-            className="xl:hidden mr-5 text-slate-900 text-4xl"
+            className="xl:hidden mr-5 text-slate-900 text-4xl transition-transform duration-500"
             onClick={() => setIsOpen((p: boolean) => !p)}
           >
             {isOpen ? "✕" : "☰"}
@@ -131,106 +153,115 @@ export default function Navbar({ isOpen, setIsOpen }: NavbarProps) {
         </div>
       </div>
 
-      {/* Mobile Nav */}
-      {isOpen && (
-        <div className="xl:hidden bg-slate-950 text-slate-100 border-t border-slate-800 h-[100vh] overflow-y-auto scrollbar-thin scrollbar-thumb-slate-800 transition-all duration-300">
-          <div className="px-5 py-6 space-y-15 text-sm">
-            {[
-              {
-                id: "about",
-                title: "About",
-                links: [
-                  ["About Us", "/aboutus/about"],
-                  ["News Letter", "/aboutus/newsletter"],
-                  ["Team", "/aboutus/team"],
-                  ["Partner", "/aboutus/partner"],
-                  ["Customer Support", "/aboutus/customer-support"],
-                  ["Explore All", "/aboutus"],
-                ],
-              },
-              {
-                id: "product",
-                title: "Product",
-                links: [
-                  ["ERP", "/products/erp"],
-                  ["Admission", "/products/admission"],
-                  ["HR", "/products/hr"],
-                  ["Connect", "/products/connect"],
-                  ["Explore All Integrations", "/products"],
-                ],
-              },
-              {
-                id: "solution",
-                title: "Solution",
-                links: [
-                  ["Safety & Security", "/solutions/safety&security"],
-                  ["Mobile Apps", "/solutions/mobileapps"],
-                  ["Based on Curriculum", "/solutions/curriculum"],
-                  ["Explore All Integrations", "/solutions"],
-                ],
-              },
-              {
-                id: "integration",
-                title: "Integration",
-                links: [
-                  ["LMS Integration", "/integrations/lms"],
-                  ["Admission Integration", "/integrations/admission"],
-                  ["Payment Integration", "/integrations/payment"],
-                  ["Attendance Integration", "/integrations/attendance"],
-                  ["Explore All Integrations", "/integrations"],
+      {/* ---- Mobile Nav ---- */}
+      <div
+        className={`xl:hidden bg-slate-950 text-slate-100 border-t border-slate-800 overflow-y-auto
+        fixed top-20 left-0 w-full h-[100vh] transition-transform duration-500 ease-in-out
+        ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+      >
+        <div className="px-5 py-6 space-y-15 text-sm">
+          <Link
+            href="/"
+            className="block mb-10 py-3 text-[var(--nav-btn)] font-semibold"
+            onClick={() => setIsOpen(false)}
+          >
+            Home
+          </Link>
 
-                ],
-              },
-            ].map((section) => (
-              <div key={section.title}>
-                <button
-                  className="w-full mt-5 flex items-center justify-between text-left text-[var(--nav-btn)]font-semibold transition-all"
-                  onClick={() => setOpenMenu(openMenu === section.id ? null : section.id)}
-                >
-                  {section.title}
-                  <span className=" text-s transition-all">
-                    {openMenu === section.id ? "−" : "+"}
-                  </span>
-                </button>
+          {[
+            {
+              id: "about",
+              title: "About",
+              links: [
+                ["About Us", "/aboutus/about"],
+                ["News Letter", "/aboutus/newsletter"],
+                ["Team", "/aboutus/team"],
+                ["Partner", "/aboutus/partner"],
+                ["Customer Support", "/aboutus/customer-support"],
+                ["Explore All", "/aboutus"],
+              ],
+            },
+            {
+              id: "product",
+              title: "Product",
+              links: [
+                ["ERP", "/products/erp"],
+                ["Admission", "/products/admission"],
+                ["HR", "/products/hr"],
+                ["Connect", "/products/connect"],
+                ["Explore All Products", "/products"],
+              ],
+            },
+            {
+              id: "solution",
+              title: "Solution",
+              links: [
+                ["Safety & Security", "/solutions/safety&security"],
+                ["Mobile Apps", "/solutions/mobileapps"],
+                ["Based on Curriculum", "/solutions/curriculum"],
+                ["Explore All Solutions", "/solutions"],
+              ],
+            },
+            {
+              id: "integration",
+              title: "Integration",
+              links: [
+                ["LMS Integration", "/integrations/lms"],
+                ["Admission Integration", "/integrations/admission"],
+                ["Payment Integration", "/integrations/payment"],
+                ["Attendance Integration", "/integrations/attendance"],
+                ["Explore All Integrations", "/integrations"],
+              ],
+            },
+          ].map((section) => (
+            <div key={section.title}>
+              <button
+                className="w-full mt-5 flex items-center justify-between text-left text-[var(--nav-btn)] font-semibold transition-all"
+                onClick={() => setOpenMenu(openMenu === section.id ? null : section.id)}
+              >
+                {section.title}
+                <span className="text-s transition-all">
+                  {openMenu === section.id ? "−" : "+"}
+                </span>
+              </button>
 
-                <div
-                  className={`transition-all overflow-hidden ${
-                    openMenu === section.id ? "h-44 opacity-100" : "max-h-0 opacity-0"
-                  }`}
-                >
-                  <div className="mt-2 flex flex-col gap-2 pl-3 border-l border-slate-700">
-                    {section.links.map(([label, href]) => (
-                      <Link
-                        key={label}
-                        href={href}
-                        className={`block py-1 ${
-                          label.includes("Explore") ? "text-emerald-300 font-medium" : ""
-                        }`}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {label}
-                      </Link>
-                    ))}
-                  </div>
+              <div
+                className={`transition-all overflow-hidden ${
+                  openMenu === section.id ? "h-44 opacity-100" : "max-h-0 opacity-0"
+                }`}
+              >
+                <div className="mt-2 flex flex-col gap-2 pl-3 border-l border-slate-700">
+                  {section.links.map(([label, href]) => (
+                    <Link
+                      key={label}
+                      href={href}
+                      className={`block py-1 ${
+                        label.includes("Explore") ? "text-emerald-300 font-medium" : ""
+                      }`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {label}
+                    </Link>
+                  ))}
                 </div>
               </div>
-            ))}
-
-            <div className="mb-10 flex flex-col gap-15">
-              <Link href="/blog" onClick={() => setIsOpen(false)}>
-                Blog
-              </Link>
-              <Link
-                href="/contact"
-                onClick={() => setIsOpen(false)}
-                className="px-5 py-5 w-60 ml-15 text-center bg-emerald-400 text-[var(--nav-text)] font-semibold hover:bg-emerald-300 transition-all"
-              >
-                Book a demo
-              </Link>
             </div>
+          ))}
+
+          <div className="mb-10 flex flex-col gap-15">
+            <Link href="/blog" onClick={() => setIsOpen(false)}>
+              Blog
+            </Link>
+            <Link
+              href="/contact"
+              onClick={() => setIsOpen(false)}
+              className="px-5 py-5 w-60 ml-15 text-center bg-emerald-400 text-[var(--nav-text)] font-semibold hover:bg-emerald-300 transition-all"
+            >
+              Book a demo
+            </Link>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }
@@ -262,20 +293,14 @@ const MegaMenu = ({
   };
 
   return (
-    <div
-      className="relative"
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
-    >
+    <div className="relative" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
       <button className="flex p-6 items-center gap-1 text-[var(--nav-text)] hover:text-emerald-300 transition">
         {label} ▾
       </button>
 
-      {/* Dropdown */}
       <div
-        className={`absolute left-24  -translate-x-1/2 w-[1000px] mt-[-11] transition-all duration-300 ease-out origin-top
-        ${openMenu === id ? "opacity-100 translate-y-4 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}
-      `}
+        className={`absolute left-24 -translate-x-1/2 w-[1000px] mt-[-11] transition-all duration-300 ease-out origin-top
+        ${openMenu === id ? "opacity-100 translate-y-4 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}`}
         style={{ zIndex: 40 }}
       >
         <div className="bg-[var(--nav-bg0)] text-slate-100 shadow-2xl py-10">
@@ -310,11 +335,7 @@ const MegaMenu = ({
             </div>
 
             <div className="hidden md:flex items-center justify-center p-0 overflow-hidden bg-slate-800 rounded-xl">
-              <img
-                src={banner}
-                alt="banner"
-                className="object-cover w-full h-full transition-all duration-500"
-              />
+              <img src={banner} alt="banner" className="object-cover w-full h-full transition-all duration-500" />
             </div>
           </div>
         </div>
