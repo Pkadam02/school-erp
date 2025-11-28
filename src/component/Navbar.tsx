@@ -140,11 +140,12 @@ export default function Navbar({ isOpen, setIsOpen }: NavbarProps) {
                 id: "about",
                 title: "About",
                 links: [
-                  ["About US", "/aboutus"],
-                  ["News Letter", "/about/news-letter"],
-                  ["Team", "/about/team"],
-                  ["Partner", "/about/partner"],
-                  ["Customer Support", "/about/customer-support"],
+                  ["About Us", "/aboutus/about"],
+                  ["News Letter", "/aboutus/newsletter"],
+                  ["Team", "/aboutus/team"],
+                  ["Partner", "/aboutus/partner"],
+                  ["Customer Support", "/aboutus/customer-support"],
+                  ["Explore All", "/aboutus"],
                 ],
               },
               {
@@ -155,17 +156,17 @@ export default function Navbar({ isOpen, setIsOpen }: NavbarProps) {
                   ["Admission", "/products/admission"],
                   ["HR", "/products/hr"],
                   ["Connect", "/products/connect"],
-                  ["Explore All Products", "/products"],
+                  ["Explore All Integrations", "/products"],
                 ],
               },
               {
                 id: "solution",
                 title: "Solution",
                 links: [
-                  ["Safety & Security", "/solutions/safety-security"],
-                  ["Mobile Apps", "/solutions/mobile-apps"],
-                  ["Based on Curriculum", "/solutions/based-on-curriculum"],
-                  ["Explore All Solutions", "/solutions"],
+                  ["Safety & Security", "/solutions/safety&security"],
+                  ["Mobile Apps", "/solutions/mobileapps"],
+                  ["Based on Curriculum", "/solutions/curriculum"],
+                  ["Explore All Integrations", "/solutions"],
                 ],
               },
               {
@@ -177,6 +178,7 @@ export default function Navbar({ isOpen, setIsOpen }: NavbarProps) {
                   ["Payment Integration", "/integrations/payment"],
                   ["Attendance Integration", "/integrations/attendance"],
                   ["Explore All Integrations", "/integrations"],
+
                 ],
               },
             ].map((section) => (
@@ -221,7 +223,7 @@ export default function Navbar({ isOpen, setIsOpen }: NavbarProps) {
               <Link
                 href="/contact"
                 onClick={() => setIsOpen(false)}
-                className="px-5 py-5 w-60 ml-15 text-center bg-emerald-400 text-[var(--nav-btn)] font-semibold hover:bg-emerald-300 transition-all"
+                className="px-5 py-5 w-60 ml-15 text-center bg-emerald-400 text-[var(--nav-text)] font-semibold hover:bg-emerald-300 transition-all"
               >
                 Book a demo
               </Link>

@@ -45,14 +45,7 @@ export default function CustomerSupport() {
           </p>
         </div>
 
-        {/* SEARCH BAR */}
-        <div className="max-w-2xl mx-auto mb-16">
-          <input
-            type="text"
-            placeholder="Search for help (e.g., 'how to take attendance')"
-            className="w-full px-6 py-4 bg-white rounded-full shadow-md border border-gray-200 focus:ring-2 focus:ring-blue-500 outline-none"
-          />
-        </div>
+     
 
         {/* COMMITMENT SECTION */}
         <div className="bg-white rounded-2xl shadow-md p-8 mb-16">
@@ -107,7 +100,7 @@ export default function CustomerSupport() {
           {/* LEFT — SUPPORT */}
           <div>
             <Image
-              src="/about/customer.jpg"
+              src="/About/customer.jpg"
               alt="Customer Support"
               width={400}
               height={400}
